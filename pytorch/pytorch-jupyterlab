@@ -17,7 +17,7 @@ X11PORT=`echo $DISPLAY | sed 's/^[^:]*:\([^\.]\+\).*/\1/'`
 TCPPORT=`expr 6000 + $X11PORT`
 sudo ufw allow from 172.17.0.0/16 to any port $TCPPORT proto tcp 
 DISPLAY=`echo $DISPLAY | sed 's/^[^:]*\(.*\)/172.17.0.1\1/'`
-sudo docker run --gpus all --ipc=host --shm-size=1g \
+sudo docker run --name kwchun-torch --gpus all --ipc=host --shm-size=1g \
    --ulimit memlock=-1 --ulimit stack=67108864 --rm -it -p 9100:8888 \
    -p 9101:6006 -e OPENBLAS_CORETYPE=skylike \
    -e HOST_PERMS="$(id- u):$(id -g)" -v /home/kwchun:/home/kwchun \
