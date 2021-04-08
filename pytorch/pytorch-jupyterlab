@@ -20,7 +20,7 @@ DISPLAY=`echo $DISPLAY | sed 's/^[^:]*\(.*\)/172.17.0.1\1/'`
 sudo docker run --name kwchun-torch --gpus all --ipc=host --shm-size=1g \
    --ulimit memlock=-1 --ulimit stack=67108864 --rm -it -p 9100:8888 \
    -p 9101:6006 -e OPENBLAS_CORETYPE=skylike \
-   -e HOST_PERMS="$(id- u):$(id -g)" -v /home/kwchun:/home/kwchun \
+   -e HOST_PERMS="$(id -u):$(id -g)" -v /home/kwchun:/home/kwchun \
    -e DISPLAY=$DISPLAY -v $XAUTH:$XAUTH -e XAUTHORITY=$XAUTH \
    ruddyscent/pytorch:21.03-py3 \
    jupyter lab --notebook-dir=/home/kwchun --NotebookApp.token='' --NotebookApp.password='' \
