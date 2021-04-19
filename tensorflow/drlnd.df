@@ -1,5 +1,5 @@
 FROM nvcr.io/nvidia/tensorflow:21.03-tf1-py3
 LABEL maintainer="ruddyscent@gmail.com"
-RUN apt-get update && apt-get install -y swig xvfb python-opengl
-RUN pip install gym box2d-py ipywidgets unityagents
-
+RUN apt-get update && apt-get install -y swig xvfb python-opengl x11-apps
+RUN pip install gym box2d-py ipywidgets unityagents gym-notebook-wrapper JSAnimation atari-py
+RUN pip install torch==1.8.1+cu111 torchvision==0.9.1+cu111 torchaudio==0.8.1 -f https://download.pytorch.org/whl/torch_stable.html

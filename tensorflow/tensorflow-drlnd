@@ -17,10 +17,10 @@ X11PORT=`echo $DISPLAY | sed 's/^[^:]*:\([^\.]\+\).*/\1/'`
 TCPPORT=`expr 6000 + $X11PORT`
 sudo ufw allow from 172.17.0.0/16 to any port $TCPPORT proto tcp
 DISPLAY=`echo $DISPLAY | sed 's/^[^:]*\(.*\)/172.17.0.1\1/'`
-sudo docker run --name kwchun-tf --gpus all --ipc=host --shm-size=1g \
-   --ulimit memlock=-1 --ulimit stack=67108864 --rm -it -p 9000:8888 \
-   -p 9001:6006 -e OPENBLAS_CORETYPE=skylike \
+sudo docker run --name kwchun-drlnd --gpus all --ipc=host --shm-size=1g \
+   --ulimit memlock=-1 --ulimit stack=67108864 --rm -it \
+   -p 9200:8888 -p 9201:6006 -e OPENBLAS_CORETYPE=skylike \
    -e HOST_PERMS="$(id -u):$(id -g)" -v /home/kwchun:/home/kwchun \
    -e DISPLAY=$DISPLAY -v $XAUTH:$XAUTH -e XAUTHORITY=$XAUTH \
-   ruddyscent/tensorflow:21.03-tf2-py3 \
+   ruddyscent/drlnd \
    jupyter lab --notebook-dir=/home/kwchun --NotebookApp.token='' --NotebookApp.password='' \
